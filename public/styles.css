@@ -1,0 +1,134 @@
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+  line-height: 1.666;
+  color: #555;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 500%;
+  text-align: center;
+  margin-top: 4rem;
+  color: #fff;
+  line-height: 1.2;
+}
+
+h1 span {
+  padding: 5px 15px;
+  background: #2ec2b0;
+}
+
+.dictionary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 4rem auto;
+  max-width: 90%;
+}
+
+.dictionary > .term {
+  text-align: center;
+  max-width: 20rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05), 0 5px 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: all 100ms ease-in-out;
+}
+
+.dictionary > .term > dt {
+  margin-bottom: 1rem;
+}
+
+dt {
+  color: #2ec2b0;
+  line-height: 1;
+}
+
+dt span {
+  font-size: 200%;
+  font-weight: 900;
+}
+
+.emoji {
+  margin: 0 auto 20px;
+  display: block;
+  font-size: 400%;
+}
+
+dd {
+  font-size: 92.5%;
+  margin-left: 0;
+}
+
+dd dt {
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  font-size: inherit;
+}
+
+dd dl {
+  font-size: 90%;
+  margin: 1rem auto 0 auto;
+  letter-spacing: 0.33px;
+  max-width: 15rem;
+}
+
+dd dl .term {
+  margin-bottom: 1rem;
+}
+
+dd a {
+  color:inherit;
+  text-decoration:none;
+}
+dd a:hover {
+  color: rgba(50,80,90, 0.5);
+}
+
+.hidden {
+  display: none;
+}
+
+.icons {
+  position: relative;
+  right: -1em;
+  top: 4.5em;
+  text-align: right;
+}
+
+.iconView li {
+	float: left; text-align: center;
+	list-style-type: none;
+	position: relative;
+	padding: 20px 5px 0 5px;
+
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.iconView li a{
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+	text-decoration: none;
+	color: #666;
+	font-family: arial, verdana, tahoma;
+	font-size: 11px;
+	display: inline-block;
+
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.iconView li a:hover, .iconView li a:hover+ul li a {
+	background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+}
