@@ -132,3 +132,47 @@ dd a:hover {
 .iconView li a:hover, .iconView li a:hover+ul li a {
 	background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
 }
+
+/*Win2 popup window style*/
+#win2 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  left: 10000px;
+  top: 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 60%);
+  z-index: -1;
+}
+#win2 .popupBody {
+  width: 600px;
+  height: auto;
+  position: relative;
+  left: 20%;
+  top: 20%;
+  color: black;
+  background-color: white;
+  border-radius: 5%;
+}
+
+#win3 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  left: 10000px;
+  top: 0;
+  text-align: center;
+  background: rgba(100, 100, 100, 50%);
+  z-index: -2;
+}
+
+#win3 .popupBody {
+  width: 600px;
+  height: auto;
+  position: relative;
+  left: 20%;
+  top: 20%;
+  color: black;
+  background-color: white;
+  border-radius: 5%;
+}

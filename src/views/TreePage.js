@@ -7,14 +7,13 @@ import { useParams } from "react-router-dom";
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import ManTwoToneIcon from '@mui/icons-material/ManTwoTone';
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
+import Button from "@mui/material/Button";
+import InputProfile from '../components/InputProfile';
+import InputRelation from '../components/InputRelation';
 
 function Age(params) {
   const Year = new Date(params.Birthdate);
   return (<p>{eval(params.Male)?<ManTwoToneIcon fontSize='tiny'/>:<FaceRetouchingNaturalIcon fontSize='tiny'/>} {Year.getFullYear()}</p>);
-}
-
-function Hidden(params) {
-    return(<span id={params.Id} className='hidden' onClick={(e)=>handleClick(e, params.Id)}><EditTwoToneIcon sx={{fontSize: 16}}/></span>)
 }
 
 function handleMouseOver(id) {
@@ -27,25 +26,42 @@ function handleMouseOut(id) {
   element.setAttribute('class','hidden');
 }
 
-function handleClick(event, id) {
-    event.stopPropagation();
-    window.location.href = '/id/'+id;
-}
-
 function TreePage() {
   const { id } = useParams();
-  const [ ID, setId ] = React.useState(id);
-  const [data, setData] = React.useState();
+  const [ nodeID, setId ] = React.useState(id);
+  const [ data, setData ] = React.useState();
   let neverFetched = true;
 
-  function change(event, id) {
+  function handleInput(event, index) {
+    console.log(event.target.name);
+    setData(prevData => {
+      data[index] = {...data[index], [event.target.name]:event.target.value};
+      return [...data];
+    });
+  }
+
+  function Hidden(params) {
+      return(<span id={params.Id} className='hidden' onClick={()=>handleClick(params.Id)}><EditTwoToneIcon sx={{fontSize: 16}}/></span>)
+  }
+
+  /*user clicked on edit of individual node on tree*/
+  function handleClick(id01) {
+      //window.location.href = '/id/'+Id;
+      console.log('Changing ID to: '+id01);
+      setId(id01);
+      const win2 = document.getElementById("win2");
+      setTimeout(()=>win2.setAttribute("style", "position:absolute; z-index:1; left:0px"), 1000);
+  }
+
+  /*user clicked on Go Up or individual node*/
+  function change(event, id01) {
     event.preventDefault();
-    if ( data.findIndex(x=>x._id == id) > -1) {
+    if ( data.findIndex(x=>x._id == id01) > -1) {
       console.log('Found ID！啊哈');
-      setId(id);
+      setId(id01);
     } else {
-      console.log(id+" is not fetched yet. Fetching...")
-      window.location.href = id;
+      console.log(id01+" is not fetched yet. Fetching...")
+      window.location.href = id01;
     }
   }
 
@@ -79,23 +95,36 @@ function TreePage() {
         }
         </ul></li>)
 
-    } else {
-      /*it's a leaf*/
-      return(<li><a href="#" onMouseOver={()=>handleMouseOver(_id)} onMouseOut={()=>handleMouseOut(_id)}>{fName} {lName}<Age Male={isMale} Birthdate={birthdate} /> <Hidden Id={_id} /></a></li>)
+      } else {
+        /*it's a leaf*/
+        return(<li><a href="#" onMouseOver={()=>handleMouseOver(_id)} onMouseOut={()=>handleMouseOut(_id)}>{fName} {lName}<Age Male={isMale} Birthdate={birthdate} /> <Hidden Id={_id} /></a></li>)
+      }
     }
-  }
 
   if (data) {
-      const found = data.find(x=>x._id==ID);
-      return(<div className="tree" style={{overflowX:'scroll', whiteSpace: 'nowrap'}}>Family Tree
-            <ul>{found.fatherID?<li><a href={found.fatherID} onClick={ (e)=>change(e, found.fatherID) }>Go Up</a></li>
-                              :<li><a href='#'>Add Ancestor</a></li>}
-                <TreeNode Node={found} Key={found.id}/>
-            </ul></div>);
+      const foundIndex = data.findIndex(x=>x._id==nodeID);
+      if(foundIndex < 0) {
+        return(<h1>Node ID not found.</h1>);
+      } else {
+      return(<div style={{overflowX:'scroll', whiteSpace: 'nowrap'}}>
+              <div className="tree">Family Tree
+              <ul>{data[foundIndex].fatherID?<li><a href={data[foundIndex].fatherID} onClick={ (e)=>change(e, data[foundIndex].fatherID) }>Go Up</a></li>
+                                :<li><a href='#'>Add Ancestor</a></li>}
+                  <TreeNode Node={data[foundIndex]} Key={data[foundIndex].id}/>
+              </ul>
+              </div>
+              <div id="win2"><div className="popupBody">
+                <InputProfile Data={data[foundIndex]} HandleInput={handleInput} Index={foundIndex} />
+              </div></div>
+              <div id="win3"><div className="popupBody">
+                <InputRelation Data={data} Index={foundIndex}/>
+              </div></div>
+            </div>);
+      }
   }
   else if(neverFetched) {
     neverFetched = false;
-    FindById(ID)
+    FindById(nodeID)
   }
 
   return (<p>Loading ... </p>)
