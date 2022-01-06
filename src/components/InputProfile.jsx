@@ -61,6 +61,7 @@ function InputProfile(params) {
                 id="birthdate"
                 name="birthdate"
                 label="Birthdate"
+                variant="standard"
                 value={Bday}
                 onChange={(e)=>params.HandleInput(e, params.Index)} />
           </Grid>
@@ -108,17 +109,16 @@ function InputProfile(params) {
                 onChange={(e)=>params.HandleInput(e, params.Index)} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <FormControl sx={{width: '35ch', marginTop:'0.5em'}}>
+            <FormControl sx={{width: '30ch', marginTop:'0.5em'}}>
                 <InputLabel id="select-label">Family</InputLabel>
                 <Select
                   labelId="select-label"
+                  label="Family"
                   value={0}
-                  label="Family members"
                   onChange={familyChange}
                 >
-                  <MenuItem value={0}>Edit Members ...</MenuItem>
-                  <MenuItem value={'children'}>Edit Children</MenuItem>
-                  <MenuItem value={'couple'}>Edit Couple</MenuItem>
+                  <MenuItem value={0}>View family members...</MenuItem>
+                  <MenuItem value={'family'}>Edit Family</MenuItem>
                 </Select>
               </FormControl>
           </Grid>

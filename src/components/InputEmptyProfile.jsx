@@ -12,13 +12,16 @@ import Grid from '@mui/material/Grid';
 import Alert from '@mui/material/Alert';
 
 function handleCancel() {
+  const win1 = document.getElementById("win1");
   const win3 = document.getElementById("win3");
+  win1.setAttribute("style", "position:relative; z-index:-1; left:10000px");
   win3.setAttribute("style", "position:relative; z-index:-1; left:10000px");
+
 }
 
 function InputProfile(params) {
   const data = params.Data;
-  let url = '//localhost:8000/api/0?'+params.Relation+"="+data._id;
+  let url = '//localhost:8000/add/'+params.Relation+"?id="+data._id;
 
   const handleChange = (event) => {
      alert(event.target.value);
@@ -55,7 +58,8 @@ function InputProfile(params) {
                 id="birthdate"
                 name="birthdate"
                 label="Birthdate"
-                value="12/30/2000"
+                variant="standard"
+                defaultValue="12/30/2000"
                 />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -64,7 +68,7 @@ function InputProfile(params) {
               <RadioGroup
                 row
                 aria-label="gender"
-                value={true}
+                defaultValue={true}
                 name="isMale"
               >
                 <FormControlLabel value="true" control={<Radio />} label="Male"  />

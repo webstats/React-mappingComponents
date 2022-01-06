@@ -1,6 +1,4 @@
 import React from "react";
-import TextField from '@mui/material/TextField';
-import SaveIcon from '@mui/icons-material/Save';
 import Grid from '@mui/material/Grid';
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 import ManTwoToneIcon from '@mui/icons-material/ManTwoTone';
@@ -21,13 +19,33 @@ function InputRelation(params) {
     setAddNew("child");
   }
 
-  function handleChange(event) {
-
+  function handleAddCouple(event) {
+    event.preventDefault();
+    setAddNew("couple");
   }
 
   return(<Grid container spacing={2}>
             <Grid item xs={12} md={12}>
-            <div className="tree"><ul><li><a href="#">{found.fName} {found.lName}</a>
+            <div className="tree"><ul><li><a href="#">{found.fName} {found.lName} <br/>
+                                          {found.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />}
+                                          {new Date(found.birthdate).getFullYear()}
+                                          </a>
+            {
+              found.couple.map((coupleId, i) =>
+              {
+                const couple = params.Data.find(x => x._id==coupleId);
+                if(couple) {
+                  let year = new Date(couple.birthdate).getFullYear();
+                  return(<span style={{float:'none'}}>-<a href={coupleId} key={i}>
+                        {couple.fName} {couple.lName} <br/>
+                        {couple.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />}
+                        {year}</a></span>
+                        )
+                } else {
+                  return(<a href={coupleId} key={i}>Partner ID: {coupleId}</a>)
+                }
+              })
+            }
             <ul>
             { found.children.map((childId, i) =>
               {
@@ -46,11 +64,11 @@ function InputRelation(params) {
               })
             }
             <li><a href={found._id} onClick={e => handleAddChild(e)}>+ Child</a></li>
-            </ul></li><li><a href="#">+ wife</a></li></ul></div>
+            </ul></li><li><a href={found._id} onClick={e => handleAddCouple(e)}>+ Partner</a></li></ul></div>
             </Grid>
             <Grid item xs={12} md={12}>
             <Collapse in={addNew}>
-              <InputEmptyProfile Data={found} Relation={addNew} HandleInput={handleChange} Index={0}/>
+              <InputEmptyProfile Data={found} Relation={addNew}/>
             </Collapse>
             </Grid>
         </Grid>
