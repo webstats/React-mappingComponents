@@ -5,7 +5,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import InputProfile from '../components/InputProfile';
 import InputRelation from '../components/InputRelation';
 import InputEmptyProfile from '../components/InputEmptyProfile';
@@ -42,15 +41,11 @@ function TreePage() {
   }
 
   function Hidden(params) {
-      return(<span id={params.Ukey} className='hidden' onClick={()=>handleEdit(params.Id)}><EditTwoToneIcon sx={{fontSize: 16}}/></span>)
-  }
-
-  function HiddenMama(params) {
-    return(<span id={params.Id} className='hiddenNon'><AccountTreeTwoToneIcon sx={{fontSize: 16}} alt="Happily Married!" /></span>)
+      return(<span id={params.Id} className='hidden' onClick={()=>handleClick(params.Id)}><EditTwoToneIcon sx={{fontSize: 16}}/></span>)
   }
 
   /*user clicked on edit of individual node on tree*/
-  function handleEdit(id01) {
+  function handleClick(id01) {
       //window.location.href = '/id/'+Id;
       console.log('Changing ID to: '+id01);
       setId(id01);
@@ -79,49 +74,28 @@ function TreePage() {
   }
 
   function Linkn(params) {
-    const partnerId = params.CoupleId;
-    const key = params.Ukey;
+    const coupleId = params.CoupleId;
+    const couple = DATA.find(x => x._id==coupleId);
+    if (couple) {
 
-    const partner = DATA.find(x => x._id==partnerId);
-    if (partner) {
-
-    return(<><a href={partnerId}
-                onClick={ (e)=>change(e, partner._id) }
-                onMouseOver={()=>handleMouseOver(key)} onMouseOut={()=>handleMouseOut(key)}>
-                {partner.fName} {partner.lName}
-                <Age Male={partner.isMale} Birthdate={partner.birthdate} />
-                <Hidden Id={partner._id} Ukey={key} />
+    return(<><a href={coupleId}>
+              {couple.fName} {couple.lName}
+              <Age Male={couple.isMale} Birthdate={couple.birthdate} />
            </a>-</>)
     } else {
-      return(<a href={partnerId}>ID:{partnerId}</a>)
+      return(<a href={coupleId}>ID:{coupleId}</a>)
     }
-  }
-
-  function FemaleNode(params) {
-    const wifeData = params.Node;
-    if(wifeData.couple.length>0){
-      return(wifeData.couple.map((husbandId, index)=>{
-                const husbandData = DATA.find(x => x._id==husbandId);
-                if (husbandData) {
-                  return(<TreeNode Node={husbandData} key={index+husbandId}/>)
-                } else {
-                  FindById(wifeData._id);
-                }
-            }))
-      } else {
-        return(<TreeNode Node={wifeData} key={'000'+wifeData._id}/>)
-      }
   }
 
   function TreeNode(params) {
     const { _id, fName, lName, isMale, birthdate, children, couple } = params.Node;
 
     if(children.length > 0) {
-      /*it's a branch. Only Males. Females have 0 Children.*/
+      /*it's a branch*/
       return(
         <li>{ couple.map((coupleId) =>
               {
-                  return(<Linkn CoupleId={coupleId} key={coupleId} Ukey={_id+coupleId} />);
+                  return(<Linkn CoupleId={coupleId} />);
                })
              }
              <a href={_id}
@@ -129,8 +103,8 @@ function TreePage() {
               onMouseOver={()=>handleMouseOver(_id)} onMouseOut={()=>handleMouseOut(_id)}>
                 {fName} {lName}
                 <Age Male={isMale} Birthdate={birthdate} />
-                <Hidden Id={_id} Ukey={_id} />
-              </a>
+                <Hidden Id={_id} />
+            </a>
             <ul>
             { children.map((childId) =>
               {
@@ -140,25 +114,13 @@ function TreePage() {
             }
             </ul></li>)
 
-      } else { /*it's a leaf: if it's female and has partner(s), need fetching her partner family first.*/
-        if((!isMale) && (couple.length>0)) {
-          console.log('Found mom:'+_id);
-          return(<li>
-                  <a href={_id}
-                    onMouseOver={()=>handleMouseOver(_id)} onMouseOut={()=>handleMouseOut(_id)}>
-                    {fName} {lName}
-                    <Age Male={isMale} Birthdate={birthdate} />
-                    <HiddenMama Id={_id} />
-                   </a></li>)
-        } else {
-        return(<li>
-                <a href="#"
-                  onMouseOver={()=>handleMouseOver(_id)} onMouseOut={()=>handleMouseOut(_id)}>
+      } else {
+        /*it's a leaf*/
+        return(<li><a href="#" onMouseOver={()=>handleMouseOver(_id)} onMouseOut={()=>handleMouseOut(_id)}>
                   {fName} {lName}
                   <Age Male={isMale} Birthdate={birthdate} />
-                  <Hidden Id={_id} Ukey={_id} />
-                 </a></li>)
-        }
+                  <Hidden Id={_id} />
+                </a></li>)
       }
     }
 
@@ -171,12 +133,8 @@ function TreePage() {
               <div className="tree">Family Tree
               <ul>{DATA[foundIndex].fatherID?
                         <li><a href={DATA[foundIndex].fatherID} onClick={ (e)=>change(e, DATA[foundIndex].fatherID) }>Go Up</a></li>
-                        :<li><a href='#' onClick={handleAddParent}>Add Parent</a></li>
-                  }
-                  { DATA[foundIndex].isMale?
-                    <TreeNode Node={DATA[foundIndex]} />
-                    : <FemaleNode Node={DATA[foundIndex]} />
-                  }
+                        :<li><a href='#' onClick={handleAddParent}>Add Parent</a></li>}
+                  <TreeNode Node={DATA[foundIndex]} />
               </ul>
               </div>
               <div id="win1"><div className="popupBody">

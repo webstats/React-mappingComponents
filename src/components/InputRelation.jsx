@@ -1,3 +1,4 @@
+/*This jsx corresponding to WIN2*/
 import React from "react";
 import Grid from '@mui/material/Grid';
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
@@ -26,7 +27,8 @@ function InputRelation(params) {
 
   return(<Grid container spacing={2}>
             <Grid item xs={12} md={12}>
-            <div className="tree"><ul><li><a href="#">{found.fName} {found.lName} <br/>
+            <h4>{found.fName} {found.lName} Family</h4>
+            <div className="tree"><ul><li><a href="#" disabled>{found.fName} {found.lName} <br/>
                                           {found.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />}
                                           {new Date(found.birthdate).getFullYear()}
                                           </a>
@@ -52,7 +54,7 @@ function InputRelation(params) {
                 const child = params.Data.find(x=>x._id==childId);
                 if(child) {
                   let year = new Date(child.birthdate).getFullYear();
-                  return(<li key={childId}>
+                  return(<li key={childId+i}>
                         <a href='#'>
                         {child.fName} {child.lName} <br/>
                         {child.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />}
@@ -67,7 +69,7 @@ function InputRelation(params) {
             </ul></li><li><a href={found._id} onClick={e => handleAddCouple(e)}>+ Partner</a></li></ul></div>
             </Grid>
             <Grid item xs={12} md={12}>
-            <Collapse in={addNew}>
+            <Collapse in={addNew!=null}>
               <InputEmptyProfile Data={found} Relation={addNew}/>
             </Collapse>
             </Grid>

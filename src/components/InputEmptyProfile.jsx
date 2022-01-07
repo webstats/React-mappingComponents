@@ -21,13 +21,9 @@ function handleCancel() {
 
 function InputProfile(params) {
   const data = params.Data;
-  let url = '//localhost:8000/add/'+params.Relation+"?id="+data._id;
+  let relation = params.Relation;
 
-  const handleChange = (event) => {
-     alert(event.target.value);
-     const win3 = document.getElementById("win3");
-     win3.setAttribute("style", "position:absolute; z-index:2; left:0px");
-   };
+  let url = '//localhost:8000/add/'+relation+"?id="+data._id;
 
   return(<Box component="form"
               sx={{'& .MuiTextField-root': { m: 1, width: '30ch' }, flexGrow:1 }}
@@ -36,7 +32,6 @@ function InputProfile(params) {
               action={url}
               method="post"
               >
-
       <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <TextField
@@ -103,7 +98,7 @@ function InputProfile(params) {
                 />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Alert severity="info">Click save to add {params.Relation}</Alert>
+            <Alert severity="info">Click save to add {relation}</Alert>
           </Grid>
           <Grid item xs={6} md={6}>
               <Button type="submit"><SaveIcon /> Save </Button>

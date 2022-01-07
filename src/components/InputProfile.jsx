@@ -110,14 +110,14 @@ function InputProfile(params) {
           </Grid>
           <Grid item xs={12} md={6}>
             <FormControl sx={{width: '30ch', marginTop:'0.5em'}}>
-                <InputLabel id="select-label">Family</InputLabel>
+                <InputLabel id="select-label">View Family Members</InputLabel>
                 <Select
                   labelId="select-label"
-                  label="Family"
+                  label="View Family Members"
                   value={0}
                   onChange={familyChange}
                 >
-                  <MenuItem value={0}>View family members...</MenuItem>
+                  <MenuItem value={0}>........</MenuItem>
                   <MenuItem value={'family'}>Edit Family</MenuItem>
                 </Select>
               </FormControl>
