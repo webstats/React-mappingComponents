@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['Profile','Login'];
+const pages = ['Search','New'];
 const settings = ['Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
@@ -26,8 +26,15 @@ const Header = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (event) => {
     setAnchorElNav(null);
+    const pageChosen = event.target.name;
+    console.log(pageChosen);
+    if(pageChosen == "Search") {
+      window.location.href = "/landing";
+    } else if (pageChosen == "New") {
+      window.location.href = "/id/0";
+    }
   };
 
   const handleCloseUserMenu = () => {
@@ -77,7 +84,7 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} name={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -95,6 +102,7 @@ const Header = () => {
             {pages.map((page) => (
               <Button
                 key={page}
+                name={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -126,7 +134,7 @@ const Header = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNavMenu}>
+                <MenuItem key={setting} name={setting} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

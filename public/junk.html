@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>you can delete this</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="familyTree.css" >
+    <style type="text/css">
+    .dictionary {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: start;
+      margin: 4rem auto;
+      max-width: 90%;
+    }
+
+    .dictionary > .term {
+      text-align: center;
+      max-width: 20rem;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      border-radius: 3px;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05), 0 5px 20px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      transition: all 100ms ease-in-out;
+    }
+
+    .dictionary > .term > dt {
+      margin-bottom: 1rem;
+    }
+
+    .dictionary > .line{
+      text-align: center;
+    	content: '';
+    	position: relative; top: 3rem; right: 0;
+    	border-bottom: 1px solid #ccc;
+    	width: 50%; height: 20px;
+    }
+
+    dt {
+      color: #2ec2b0;
+      line-height: 1;
+    }
+
+    dt span {
+      font-size: 200%;
+      font-weight: 900;
+    }
+    </style>
+  </head>
+
+  <body>
+  <dl class="dictionary">
+    <div class="term"><dt>Definition</dt><dd>Description</dd></div>
+    <div class="line"><button type="button" name="relation">Delete this relation</button></div>
+    <div class="term"><dt>Definition</dt><dd>Description</dd></div>
+  </dl>
+
+  </body>
+</html>

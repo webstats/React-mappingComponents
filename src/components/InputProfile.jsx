@@ -3,11 +3,14 @@ import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Collapse from '@mui/material/Collapse';
+import Alert from '@mui/material/Alert';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -22,12 +25,34 @@ function InputProfile(params) {
   const data = params.Data;
   const Bdate = new Date(data.birthdate);
   const Bday = Bdate.toLocaleDateString();
+  const [deletePerson, setDeletePerson] = React.useState(null);
+  const [errMsg, setErrMsg] = React.useState(null);
   let url = '//localhost:8000/api/'+data._id;
 
   const familyChange = (event) => {
      const win3 = document.getElementById("win3");
      win3.setAttribute("style", "position:absolute; z-index:2; left:0px; top:0px");
    };
+
+   const handleClose = () => {
+     setDeletePerson(null);
+     setErrMsg(null);
+   };
+
+   function handleX(xPerson) {
+     const {fatherID, couple, children} = xPerson;
+     const url = '//localhost:8000/api/'+xPerson._id+'?name=0&del=0';
+     console.log(url);
+
+     if(fatherID) { setErrMsg('You cannot delete this person while there is father info.')
+                  } else if (couple.length>0) {
+                    setErrMsg('You cannot delete this person while there is spouse.')
+                  } else if (children.length>0) {
+                    setErrMsg('You cannot delete this person while there is child.')
+                  } else {
+                    fetch(url).then(()=>{window.location.href = '//localhost:3000/landing' });
+                  }
+   }
 
   return(<Box component="form"
               sx={{'& .MuiTextField-root': { m: 1, width: '30ch' }, flexGrow:1}}
@@ -121,12 +146,24 @@ function InputProfile(params) {
                   <MenuItem value={'family'}>Edit Family</MenuItem>
                 </Select>
               </FormControl>
+              <Button onClick={() => {setDeletePerson(data)}}>Delete this person</Button>
+          </Grid>
+          <Grid item xs={12} md={12}>
+          <Collapse in={deletePerson!=null}>
+          { (deletePerson!=null) && <Alert severity="warning">
+              You will permanently delete {deletePerson.fName} {deletePerson.lName}
+              <Button onClick={() => {handleX(deletePerson)}} autoFocus><SaveIcon />Yes</Button>
+              <Button onClick={handleClose}><CancelIcon />Cancel</Button>
+              </Alert>
+          }
+          </Collapse>
+          { (errMsg != null) && <Alert severity="error">{errMsg}</Alert> }
           </Grid>
           <Grid item xs={12} md={6}>
-              <Button type="submit"><SaveIcon /> Save </Button>
+              <Button type="submit"><SaveIcon />Save</Button>
           </Grid>
           <Grid item xs={12} md={6}>
-              <Button onClick={handleCancel}>Cancel</Button>
+              <Button onClick={handleCancel}><CancelIcon />Cancel</Button>
           </Grid>
         </Grid>
 

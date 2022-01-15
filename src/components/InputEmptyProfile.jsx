@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -14,16 +15,38 @@ import Alert from '@mui/material/Alert';
 function handleCancel() {
   const win1 = document.getElementById("win1");
   const win3 = document.getElementById("win3");
-  win1.setAttribute("style", "position:relative; z-index:-1; left:10000px");
-  win3.setAttribute("style", "position:relative; z-index:-1; left:10000px");
+  win1 && win1.setAttribute("style", "position:relative; z-index:-2; left:20000px");
+  win3 && win3.setAttribute("style", "position:relative; z-index:-1; left:20000px");
 
 }
 
-function InputProfile(params) {
+function InputEmptyProfile(params) {
   const data = params.Data;
   let relation = params.Relation;
+  let [gender, setGender] = React.useState(null);
+
+  function handleGenderChange(event) {
+    console.log("Gender? "+event.target.value)
+    setGender(event.target.value);
+  }
+
+  if (gender == null) {
+    if(relation == 'father') {
+        setGender('true');
+    } else if (relation == 'spouse') {
+        setGender(String(!data.isMale));
+    } else {
+      setGender('true')
+    }
+  }
 
   let url = '//localhost:8000/add/'+relation+"?id="+data._id;
+
+  //if add child to female, add under her husband. InputRelation eliminated scenario of adding child to single female.
+  if((relation == 'child') && (!data.isMale)) {
+    url = '//localhost:8000/add/child?id='+data.couple[data.couple.length-1];
+  }
+
 
   return(<Box component="form"
               sx={{'& .MuiTextField-root': { m: 1, width: '30ch' }, flexGrow:1 }}
@@ -63,8 +86,9 @@ function InputProfile(params) {
               <RadioGroup
                 row
                 aria-label="gender"
-                defaultValue={true}
+                value={gender}
                 name="isMale"
+                onChange={handleGenderChange}
               >
                 <FormControlLabel value="true" control={<Radio />} label="Male"  />
                 <FormControlLabel value="false" control={<Radio />} label="Female" />
@@ -98,17 +122,18 @@ function InputProfile(params) {
                 />
           </Grid>
           <Grid item xs={12} md={6}>
+            <input type="hidden" name="fatherID" value="" />
             <Alert severity="info">Click save to add {relation}</Alert>
           </Grid>
           <Grid item xs={6} md={6}>
               <Button type="submit"><SaveIcon /> Save </Button>
           </Grid>
           <Grid item xs={6} md={6}>
-              <Button onClick={handleCancel}>Cancel</Button>
+              <Button onClick={handleCancel}><CancelIcon />Cancel</Button>
           </Grid>
         </Grid>
 
         </Box>)
 }
 
-export default InputProfile;
+export default InputEmptyProfile;

@@ -9,6 +9,8 @@ import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 import ManTwoToneIcon from '@mui/icons-material/ManTwoTone';
 import InputProfile from '../components/InputProfile';
+import InputEmptyProfile from '../components/InputEmptyProfile';
+import Header from "../components/Header";
 
 function DetailPage() {
   const { id } = useParams();
@@ -53,10 +55,12 @@ function DetailPage() {
     if(httpQuery == 1) {
       return(<InputProfile Data={data} HandleInput={handleChange} Index={0}/>);
     } else {
-      return(<dl className="dictionary"><div className="term"><dt>{data.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />} {data.fName} {data.lName} ({year})</dt>
+      return(<><Header /><dl className="dictionary"><div className="term"><dt>{data.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />} {data.fName} {data.lName} ({year})</dt>
       <dd>{data.address}<br/>{data.country}<br/>{data.email}
-      </dd><dd className="icons"><a href={href}><AccountTreeTwoToneIcon /></a></dd></div></dl>)
+      </dd><dd className="icons"><a href={href}><AccountTreeTwoToneIcon /></a></dd></div></dl></>)
     }
+  } else if (id == 0) {
+    return(<><Header /><InputEmptyProfile Data={{_id:0, isMale:true}} Relation='person'/></>)
   } else if (neverFetched) {
     neverFetched = false;
     FindById(id);

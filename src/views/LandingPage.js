@@ -7,6 +7,7 @@ import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural
 import ManTwoToneIcon from '@mui/icons-material/ManTwoTone';
 import Box from '@mui/material/Box';
 import Container from '@material-ui/core/Container';
+import Collapse from '@mui/material/Collapse';
 
 function Person(params) {
   let year = new Date(params.detail.birthdate).getFullYear();
@@ -22,7 +23,12 @@ function LandingPage(props) {
     console.log(e.target.inputName);
     const response = await fetch('//localhost:8000/api/0?name='+e.target.inputName.value);
     const tmp = await response.json();
-    setData(tmp);
+
+    if(Object.keys(tmp).length <= 0) {
+      setData(null);
+    } else {
+      setData(tmp);
+    }
   }
 
   return (
@@ -41,6 +47,9 @@ function LandingPage(props) {
     </Box>
     <div className="iconView">
     {data && data.map((item, x) => <Person key={x} detail={item} />)}
+    <Collapse in={data===null}>
+      <li>No record found.  <a href='//localhost:3000/id/0'>Create a new record?</a></li>
+    </Collapse>
     </div>
     <iframe src="" style={{border:'none'}} title="Iframe" name="iframe_a"></iframe>
     </Container>
