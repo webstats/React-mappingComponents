@@ -1,3 +1,6 @@
+# What is this code.
+Family tree allows a user to view/search/create/delete family tree. Written in React and Material UI, this is the client side interface. Read data feed via server side APIs.  
+
 # Getting Started with this React App
 The original folder 'components' contains a App.jsx which is not used.
 I created a new folder '1' in which App.jsx is run.
