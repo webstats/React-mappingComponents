@@ -5,7 +5,16 @@ body {
   color: #555;
 }
 
+footer {
+  position: fixed;
+  bottom:0px;
+  padding: 0 2%;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
 h1 {
+  font-family: 'Sacramento', cursive;
   font-weight: 900;
   font-size: 500%;
   text-align: center;
@@ -102,11 +111,10 @@ dd a:hover {
   position: relative;
   right: -1em;
   top: 4.5em;
-  text-align: right;
 }
 
 .iconView li {
-	float: left; text-align: center;
+	float: left;
 	list-style-type: none;
 	position: relative;
 	padding: 20px 5px 0 5px;

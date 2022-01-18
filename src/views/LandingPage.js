@@ -2,11 +2,9 @@ import React from "react";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import InputWithIcon from "../components/InputWithIcon"
-import Header from "../components/Header";
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 import ManTwoToneIcon from '@mui/icons-material/ManTwoTone';
 import Box from '@mui/material/Box';
-import Container from '@material-ui/core/Container';
 import Collapse from '@mui/material/Collapse';
 
 function Person(params) {
@@ -32,15 +30,18 @@ function LandingPage(props) {
   }
 
   return (
-    <>
-    <Header />
-    <Container style={{marginTop:'1em'}}>
-    <Box component="form" sx={{'& .MuiTextField-root': { m: 1, width: '50ch' }, }}
+    <Box sx={{display: "block",
+              margin:"1em",
+              padding:"2em",
+              width: "90%",
+              alignItems:"center"
+            }}>
+    <Box component="form" sx={{'& .MuiTextField-root': { m: 1, width: '50ch' }}}
                 noValidate
                 autoComplete="on"
                 method="post"
                 onSubmit={go}>
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" justifyContent="center" spacing={2}>
         <InputWithIcon />
         <Button variant="outlined" color="primary" type="submit">Enter</Button>
       </Stack>
@@ -52,8 +53,8 @@ function LandingPage(props) {
     </Collapse>
     </div>
     <iframe src="" style={{border:'none'}} title="Iframe" name="iframe_a"></iframe>
-    </Container>
-    </>)
+    </Box>
+    )
 }
 
 export default LandingPage;

@@ -1,63 +1,148 @@
-import React from "react";
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
+import ButtonBase from "@mui/material/ButtonBase";
+import Typography from "@mui/material/Typography";
 
-function App() {
-  const [treeData, setTreeData] = React.useState("");
-
-  async function fetchData() {
-      const response = await fetch('//localhost:8000/api/all');
-      const data = await response.json();
-      /*HTTP response contains a data object which is an Array*/
-      console.log(data);
-      setTreeData(data.toString());
+const images = [
+  {
+    url: "/images/buttons/bird.jpg",
+    href: "/landing",
+    title: "Find a Tree",
+    width: "60%"
+  },
+  {
+    url: "/images/buttons/tree.jpg",
+    href: "/id/0",
+    title: "Build a Tree",
+    width: "40%"
   }
+];
 
-function postData() {
-      const JSONString = {lName:'wei',fName:'chen'};
-      fetch('http://localhost:8000/api/1234', {
-         mode: 'no-cors',
-         method: 'POST',
-         headers:{
-            'Content-Type':'application/json',
-            //'Content-Type':'text/plain',
-           //'Access-Control-Allow-Origin':'*'
-          },
-          body: JSON.stringify(JSONString)
-      })
-      .then(response => console.log(response))
-      .then(data => data && console.log(data));
+const ImageButton = styled(ButtonBase)(({ theme }) => ({
+  position: "relative",
+  height: 200,
+  [theme.breakpoints.down("sm")]: {
+    width: "100% !important", // Overrides inline-style
+    height: 100
+  },
+  "&:hover, &.Mui-focusVisible": {
+    zIndex: 1,
+    "& .MuiImageBackdrop-root": {
+      opacity: 0.15
+    },
+    "& .MuiImageMarked-root": {
+      opacity: 0
+    },
+    "& .MuiTypography-root": {
+      border: "4px solid currentColor"
+    }
   }
+}));
 
-  async function deleteData() {
-    const obj = {lName:'wei',fName:'chen'};
-    await fetch('http://localhost:8000/api/1234', {
-       method: 'DELETE',
-       headers: {
-         'Content-Type':'application/json',
-         'Access-Control-Allow-Origin':'*'
-        },
-        body: JSON.stringify(obj)
-    })
-    .then(response => console.log(response))
-    .then(data => data && console.log(data));
-  }
+const ImageSrc = styled("span")({
+  position: "absolute",
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundSize: "cover",
+  backgroundPosition: "center 40%"
+});
 
-  function go(e) {
-    e.preventDefault();
-    console.log(e.target);
-  }
+const Image = styled("span")(({ theme }) => ({
+  position: "absolute",
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: theme.palette.common.white
+}));
+
+const ImageBackdrop = styled("span")(({ theme }) => ({
+  position: "absolute",
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundColor: theme.palette.common.black,
+  opacity: 0.4,
+  transition: theme.transitions.create("opacity")
+}));
+
+const ImageMarked = styled("span")(({ theme }) => ({
+  height: 3,
+  width: 18,
+  backgroundColor: theme.palette.common.white,
+  position: "absolute",
+  bottom: -2,
+  left: "calc(50% - 9px)",
+  transition: theme.transitions.create("opacity")
+}));
+
+export default function ButtonBases() {
   return (
-    <div>
-      <h1>DB operations</h1>
-      <form id='submitForm' name='submitForm' action='http://localhost:8000/api/1234' method='POST' onSubmit={go}>
-        <input type='text' name='text'></input>
-        <button type='submit'>submit!</button>
-      </form>
-      <button onClick={fetchData}>Test Get All</button>
-      <button onClick={postData}>Test Post</button>
-      <button onClick={deleteData}>Test Delete</button>
-      <p>{treeData}</p>
-    </div>
+    <>
+      <Box
+        sx={{
+          background: "repeat-x url('/images/background01.jpg')",
+          display: "flex",
+          flexWrap: "wrap",
+          minWidth: 300,
+          width: "100%",
+          boxShadow: 3
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            width: "100%",
+            border: "1px solid #edebeb",
+            padding: "10%",
+            margin: "5%"
+          }}
+        >
+        <h3>
+          Build family tree with friends and family for FREE. Enjoy this beta
+          version. User control is disabled, you have access to most features.
+          If you have any suggestion please contact me in the contact section.
+          </h3>
+        </Box>
+        {images.map((image) => (
+          <ImageButton
+            focusRipple
+            key={image.title}
+            href={image.href}
+            style={{
+              width: image.width
+            }}
+          >
+            <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+            <ImageBackdrop className="MuiImageBackdrop-root" />
+            <Image>
+              <Typography
+                component="span"
+                variant="subtitle1"
+                color="inherit"
+                sx={{
+                  position: "relative",
+                  p: 4,
+                  pt: 2,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`
+                }}
+              >
+                {image.title}
+                <ImageMarked className="MuiImageMarked-root" />
+              </Typography>
+            </Image>
+          </ImageButton>
+        ))}
+      </Box>
+    </>
   );
 }
-
-export default App;

@@ -12,7 +12,6 @@ import InputProfile from '../components/InputProfile';
 import InputRelation from '../components/InputRelation';
 import InputEmptyProfile from '../components/InputEmptyProfile';
 import Age from '../components/Age';
-import Header from "../components/Header";
 
 function handleMouseOver(id) {
   const element = document.getElementById(id);
@@ -163,7 +162,6 @@ function TreePage() {
         return(<h1>ID not found:{nodeID}</h1>);
       } else {
       return(<div>
-              <Header />
               <div className="tree">Family Tree of {DATA[foundIndex].fName} {DATA[foundIndex].lName}
               <ul>{DATA[foundIndex].fatherID?
                         <li><a href={DATA[foundIndex].fatherID} onClick={ (e)=>change(e, DATA[foundIndex].fatherID) }>Go Up</a></li>

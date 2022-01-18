@@ -49,7 +49,11 @@ function InputEmptyProfile(params) {
 
 
   return(<Box component="form"
-              sx={{'& .MuiTextField-root': { m: 1, width: '30ch' }, flexGrow:1 }}
+              sx={{'& .MuiTextField-root': { m: 1, width: '30ch' },
+                  flexGrow:1,
+                  maxWidth: "800px",
+                  margin: "0 1em",
+                 }}
               noValidate
               autoComplete="off"
               action={url}

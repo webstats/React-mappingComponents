@@ -55,12 +55,12 @@ function DetailPage() {
     if(httpQuery == 1) {
       return(<InputProfile Data={data} HandleInput={handleChange} Index={0}/>);
     } else {
-      return(<><Header /><dl className="dictionary"><div className="term"><dt>{data.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />} {data.fName} {data.lName} ({year})</dt>
+      return(<dl className="dictionary"><div className="term"><dt>{data.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />} {data.fName} {data.lName} ({year})</dt>
       <dd>{data.address}<br/>{data.country}<br/>{data.email}
-      </dd><dd className="icons"><a href={href}><AccountTreeTwoToneIcon /></a></dd></div></dl></>)
+      </dd><dd className="icons"><a href={href}><AccountTreeTwoToneIcon /></a></dd></div></dl>)
     }
   } else if (id == 0) {
-    return(<><Header /><InputEmptyProfile Data={{_id:0, isMale:true}} Relation='person'/></>)
+    return(<InputEmptyProfile Data={{_id:0, isMale:true}} Relation='person'/>)
   } else if (neverFetched) {
     neverFetched = false;
     FindById(id);
