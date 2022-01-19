@@ -20,7 +20,7 @@ function DetailPage() {
   let neverFetched = true;
 
   const href = '/tree/'+id;
-  let url = '//familydata.herokuapp.com/api/'+id;
+  let url = 'https://familydata.herokuapp.com/api/'+id;
 
   async function FindById(id) {
         console.warn(id);

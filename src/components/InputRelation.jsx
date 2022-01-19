@@ -12,7 +12,7 @@ import InputEmptyProfile from '../components/InputEmptyProfile';
 
 async function FindByIdNoreset(id) {
     console.warn("Fetching ID: "+id);
-         const url = '//familydata.herokuapp.com/api/'+id;
+         const url = 'https://familydata.herokuapp.com/api/'+id;
          const response =  await fetch(url);
          const ddd = await response.json();
          return ddd;
@@ -39,7 +39,7 @@ function InputRelation(params) {
   };
 
   function handleX(xPerson) {
-    const url = '//familydata.herokuapp.com/api/'+found._id+'?name='+xPerson._id+'&del='+xPerson.xRelation;
+    const url = 'https://familydata.herokuapp.com/api/'+found._id+'?name='+xPerson._id+'&del='+xPerson.xRelation;
     console.log(url);
     const response = fetch(url);
     setDeletePerson(null);

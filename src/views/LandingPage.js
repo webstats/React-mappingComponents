@@ -19,7 +19,7 @@ function LandingPage(props) {
   async function go(e) {
     e.preventDefault();
     console.log(e.target.inputName);
-    const response = await fetch('//familydata.herokuapp.com/api/0?name='+e.target.inputName.value);
+    const response = await fetch('https://familydata.herokuapp.com/api/0?name='+e.target.inputName.value);
     const tmp = await response.json();
 
     if(Object.keys(tmp).length <= 0) {

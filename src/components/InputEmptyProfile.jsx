@@ -40,11 +40,11 @@ function InputEmptyProfile(params) {
     }
   }
 
-  let url = '//familydata.herokuapp.com/add/'+relation+"?id="+data._id;
+  let url = 'https://familydata.herokuapp.com/add/'+relation+"?id="+data._id;
 
   //if add child to female, add under her husband. InputRelation eliminated scenario of adding child to single female.
   if((relation == 'child') && (!data.isMale)) {
-    url = '//familydata.herokuapp.com/add/child?id='+data.couple[data.couple.length-1];
+    url = 'https://familydata.herokuapp.com/add/child?id='+data.couple[data.couple.length-1];
   }
 
 
