@@ -74,7 +74,7 @@ function TreePage() {
 
   async function FindById(id) {
         console.warn("Fetching ID: "+id);
-        const url = 'https://familydata.herokuapp.com/tree/'+id;
+        const url = '//familydata.herokuapp.com/tree/'+id;
         const response =  await fetch(url);
         const ddd = await response.json();
         setData(ddd);

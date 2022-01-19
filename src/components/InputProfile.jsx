@@ -27,7 +27,7 @@ function InputProfile(params) {
   const Bday = Bdate.toLocaleDateString();
   const [deletePerson, setDeletePerson] = React.useState(null);
   const [errMsg, setErrMsg] = React.useState(null);
-  let url = 'https://familydata.herokuapp.com/api/'+data._id;
+  let url = '//familydata.herokuapp.com/api/'+data._id;
 
   const familyChange = (event) => {
      const win3 = document.getElementById("win3");
@@ -41,7 +41,7 @@ function InputProfile(params) {
 
    function handleX(xPerson) {
      const {fatherID, couple, children} = xPerson;
-     const url = 'https://familydata.herokuapp.com/api/'+xPerson._id+'?name=0&del=0';
+     const url = '//familydata.herokuapp.com/api/'+xPerson._id+'?name=0&del=0';
      console.log(url);
 
      if(fatherID) { setErrMsg('You cannot delete this person while there is father info.')
