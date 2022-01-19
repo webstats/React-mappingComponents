@@ -13,7 +13,7 @@ function Contact() {
   const { id } = useParams();
   const [ searchParams ] = useSearchParams();
   let [ httpQuery, setHttpQuery ] = React.useState(searchParams.get('res'));
-  let url = '//localhost:8000/acc/0';
+  let url = 'https://familydata.herokuapp.com/acc/0';
 
   return(
     <Box component="form"

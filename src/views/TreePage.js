@@ -1,5 +1,5 @@
 /*This is an stable version.
-* Method: http://localhost:3000/tree/5ca4bbcea2dd94ee58162b91
+* Method: http://localhost/tree/5ca4bbcea2dd94ee58162b91
 * Fetch from localhost:8000/tree and rebuild tree using recursion.
 * Know issue: Cammie Sipos, woman with multiple husbands shows up OK if searched her name,
 *             but coming down from her ancestor tree only shows her husband at the end of couple Array.
@@ -74,7 +74,7 @@ function TreePage() {
 
   async function FindById(id) {
         console.warn("Fetching ID: "+id);
-        const url = '//localhost:8000/tree/'+id;
+        const url = '//familydata.herokuapp.com/tree/'+id;
         const response =  await fetch(url);
         const ddd = await response.json();
         setData(ddd);

@@ -9,9 +9,9 @@ function Footer() {
 
   return (
     <footer>
-      <Link href="/contact/0" underline="hover" color="inherit"><EmailIcon fontSize="tiny" />Contact us | </Link>
+      <Link href="/contact/0" underline="hover" color="inherit"><EmailIcon fontSize="tiny" />Contact us | Made with 🧡 </Link>
       <p>Copyright ⓒ {year} | </p>
-      <Link href="facebook.com" underline="hover" color="inherit"><FacebookIcon /></Link>
+      <Link href="https://www.facebook.com/tony.weiliang" underline="hover" color="inherit"><FacebookIcon /></Link>
     </footer>
   );
 }

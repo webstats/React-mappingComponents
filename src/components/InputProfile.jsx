@@ -27,7 +27,7 @@ function InputProfile(params) {
   const Bday = Bdate.toLocaleDateString();
   const [deletePerson, setDeletePerson] = React.useState(null);
   const [errMsg, setErrMsg] = React.useState(null);
-  let url = '//localhost:8000/api/'+data._id;
+  let url = 'https://familydata.herokuapp.com/api/'+data._id;
 
   const familyChange = (event) => {
      const win3 = document.getElementById("win3");
@@ -41,7 +41,7 @@ function InputProfile(params) {
 
    function handleX(xPerson) {
      const {fatherID, couple, children} = xPerson;
-     const url = '//localhost:8000/api/'+xPerson._id+'?name=0&del=0';
+     const url = 'https://familydata.herokuapp.com/api/'+xPerson._id+'?name=0&del=0';
      console.log(url);
 
      if(fatherID) { setErrMsg('You cannot delete this person while there is father info.')
@@ -50,7 +50,7 @@ function InputProfile(params) {
                   } else if (children.length>0) {
                     setErrMsg('You cannot delete this person while there is child.')
                   } else {
-                    fetch(url).then(()=>{window.location.href = '//localhost:3000/landing' });
+                    fetch(url).then(()=>{window.location.href = '/landing' });
                   }
    }
 
