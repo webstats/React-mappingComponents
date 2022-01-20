@@ -114,6 +114,7 @@ dd a:hover {
 }
 
 .iconView li {
+  text-align: center;
 	float: left;
 	list-style-type: none;
 	position: relative;
