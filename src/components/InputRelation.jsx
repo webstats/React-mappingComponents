@@ -8,6 +8,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import InputEmptyProfile from '../components/InputEmptyProfile';
 
 async function FindByIdNoreset(id) {
@@ -52,10 +53,10 @@ function InputRelation(params) {
     const pRelation = params.Relation;
 
     return(<a href='#'>
-            {pData.fName} {pData.lName} <br/>
+            {pData.lName} {pData.fName}<br/>
             {pData.isMale?<ManTwoToneIcon />:<FaceRetouchingNaturalIcon />}
             {new Date(pData.birthdate).getFullYear()}
-            {pRelation && <span onClick={()=>handleClickOpen(pData, pRelation)}><CancelIcon /></span>}
+            {pRelation && <span style={{position:"relative", top:"0.8rem", left:"1em"}} onClick={()=>handleClickOpen(pData, pRelation)}><RemoveCircleOutlineIcon /></span>}
             </a>
           )
   }
@@ -79,7 +80,7 @@ function InputRelation(params) {
   return(<Grid container spacing={2}>
             <CancelIcon className="rightUpperCorner" onClick={handleCancel} />
             <Grid item xs={12} md={12}>
-            <h4>{found.fName} {found.lName}'s Family</h4>
+            <h4>{found.lName} {found.fName}'s Family</h4>
             <div className="tree"><ul><li>
                                           <Linkin Data={found} Relation={null} />
             {
@@ -90,8 +91,8 @@ function InputRelation(params) {
                       couple = FindByIdNoreset(coupleId);
                   //return(<a href={coupleId} key={coupleId+i}>Spouse {i+1}</a>)
                 }
-                return(<span style={{float:'none'}}>
-                          -<Linkin Data={couple} Relation="spouse" key={coupleId+i} />
+                return(<span key={coupleId+i} style={{float:'none'}}>
+                          -<Linkin Data={couple} Relation="spouse" />
                       </span>
                       )
               })
@@ -101,10 +102,9 @@ function InputRelation(params) {
               {
                 const child = params.Data.find(x=>x._id==childId);
                 if(child) {
-                  let year = new Date(child.birthdate).getFullYear();
-                  return(<li><Linkin Data={child} Relation="child" key={childId+i} /></li>);
+                  return(<li key={childId+i} ><Linkin Data={child} Relation="child"/></li>);
                 } else {
-                  return(<li>No child info fetched from DB: {childId}</li>)
+                  return(<li key={childId+i} >No child info fetched from DB: {childId}</li>)
                 }
               })
             }
@@ -115,7 +115,7 @@ function InputRelation(params) {
             { (alertMsg!=null) && <Alert severity="warning">{alertMsg}</Alert> }
             <Collapse in={deletePerson!=null}>
             { (deletePerson!=null) && <Alert severity="warning">
-                You will delete {deletePerson.fName} {deletePerson.lName} from {deletePerson.xRelation}
+                You will delete {deletePerson.lName} {deletePerson.fName} from {deletePerson.xRelation}
                 </Alert>
             }
             <Button onClick={() => {handleX(deletePerson)}} autoFocus><SaveIcon />Yes</Button>

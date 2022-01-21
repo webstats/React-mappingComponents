@@ -38,16 +38,20 @@ function LandingPage(props) {
     e.preventDefault();
     let inputName = e.target.inputName.value;
     setLoading(true);
-    inputName = inputName.toUpperCase();
-    const response = await fetch('//familydata.herokuapp.com/api/0?name='+inputName);
-    const tmp = await response.json();
+    if (inputName) {
+      inputName = inputName.toUpperCase();
+      const response = await fetch('//familydata.herokuapp.com/api/0?name='+inputName);
+      const tmp = await response.json();
 
-    if(Object.keys(tmp).length <= 0) {
-      setData(null);
-      setLoading(false);
+      if(Object.keys(tmp).length <= 0) {
+        setData(null);
+        setLoading(false);
+      } else {
+        setData(tmp);
+        setLoading(false);
+      }
     } else {
-      setData(tmp);
-      setLoading(false);
+      setData(null)
     }
   }
 
