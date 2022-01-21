@@ -89,7 +89,7 @@ function TreePage() {
     return(<a href={personId}
                 onClick={ (e)=>change(e, person._id) }
                 onMouseOver={()=>handleMouseOver(key)} onMouseOut={()=>handleMouseOut(key)}>
-                {person.fName} {person.lName}
+                {person.lName} {person.fName}
                 <Age Male={person.isMale} Birthdate={person.birthdate} />
                 <Hidden Id={person._id} Ukey={key} />
            </a>)
@@ -162,7 +162,7 @@ function TreePage() {
         return(<h1>ID not found:{nodeID}</h1>);
       } else {
       return(<div>
-              <div className="tree">Family Tree of {DATA[foundIndex].fName} {DATA[foundIndex].lName}
+              <div className="tree">Family Tree of {DATA[foundIndex].lName} {DATA[foundIndex].fName} 
               <ul>{DATA[foundIndex].fatherID?
                         <li><a href={DATA[foundIndex].fatherID} onClick={ (e)=>change(e, DATA[foundIndex].fatherID) }>Go Up</a></li>
                         :<li><a href='#' onClick={handleAddParent}>Add Parent</a></li>

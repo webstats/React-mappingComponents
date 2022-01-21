@@ -12,6 +12,7 @@ import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid';
 import Alert from '@mui/material/Alert';
 
+
 function handleCancel() {
   const win1 = document.getElementById("win1");
   const win3 = document.getElementById("win3");
@@ -24,9 +25,13 @@ function InputEmptyProfile(params) {
   const data = params.Data;
   let relation = params.Relation;
   let [gender, setGender] = React.useState(null);
+  let [loading, setLoading] = React.useState(false);
+
+  function handleSave() {
+    setLoading(true);
+  }
 
   function handleGenderChange(event) {
-    console.log("Gender? "+event.target.value)
     setGender(event.target.value);
   }
 
@@ -50,9 +55,7 @@ function InputEmptyProfile(params) {
 
   return(<Box component="form"
               sx={{'& .MuiTextField-root': { m: 1, width: '30ch' },
-                  flexGrow:1,
-                  maxWidth: "800px",
-                  margin: "0 1em",
+                  flexGrow:1
                  }}
               noValidate
               autoComplete="off"
@@ -130,10 +133,10 @@ function InputEmptyProfile(params) {
             <Alert severity="info">Click save to add {relation}</Alert>
           </Grid>
           <Grid item xs={6} md={6}>
-              <Button type="submit"><SaveIcon /> Save </Button>
+              <Button type="submit" onClick={handleSave}> {loading?<img src='/images/buttons/loader.gif' alt='diligently saving - please wait' />:<SaveIcon />} Save </Button>
           </Grid>
           <Grid item xs={6} md={6}>
-              <Button onClick={handleCancel}><CancelIcon />Cancel</Button>
+              <Button onClick={handleCancel} onDoubleClick={()=>window.history.back()}><CancelIcon />Cancel</Button>
           </Grid>
         </Grid>
 
