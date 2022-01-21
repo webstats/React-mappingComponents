@@ -11,13 +11,13 @@ import ButtonBases from "../components/ButtonBases";
 
 const images = [
   {
-    url: "/images/buttons/tree1.jpg",
+    url: "/images/buttons/tree1.JPG",
     href: "/tree/5ca4bbcea2dd94ee58162c36",
     title: "View a Sample Tree",
     width: "60%"
   },
   {
-    url: "/images/buttons/tree2.jpg",
+    url: "/images/buttons/tree2.JPG",
     href: "/id/0",
     title: "Build a Tree",
     width: "40%"
