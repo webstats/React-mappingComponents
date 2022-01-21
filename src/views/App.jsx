@@ -10,7 +10,7 @@ const images = [
     width: "60%"
   },
   {
-    url: "/images/buttons/tree2.jpg",
+    url: "/images/buttons/tree2.JPG",
     href: "/id/0",
     title: "Build a Tree",
     width: "40%"
